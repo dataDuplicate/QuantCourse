@@ -1,0 +1,34 @@
+
+name: CI
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v3.1.2
+      - name: Git init 
+        run: |
+          git config --global user.email xxx.com
+          git config --global user.name robot
+
+      - name: Soluation1
+        run: python bSpider.py 1 1 BV1dd4y1w71Z
+      - name: LFS1
+        run: |
+          find ./main/ -size +100M | while read i;
+          do
+          git lfs track "$i" ;
+          git add "$i";
+          git commit -m "update1" -a;
+          git push;
+          done 
+      - name: Commit and Push 1
+        run: |
+          git add main context.json pic.png
+          git commit -m "update1" -a
+          git push
+    
+    
